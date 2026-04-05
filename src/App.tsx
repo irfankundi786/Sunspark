@@ -8,6 +8,8 @@ import { motion, AnimatePresence, useSpring, useMotionValue, useInView, animate,
 import { 
   Sun, 
   Moon,
+  Menu,
+  X,
   ArrowRightCircle, 
   ArrowUpRight, 
   Share2, 
@@ -207,17 +209,17 @@ function ProductDealsSection() {
     <section 
       id="products"
       aria-labelledby="products-deal-heading"
-      className="relative py-24 bg-surface-container-lowest overflow-hidden border-b border-surface-container"
+      className="relative py-16 md:py-24 bg-surface-container-lowest overflow-hidden border-b border-surface-container"
     >
-      <div className="max-w-7xl mx-auto px-8 mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-12 md:mb-16">
         <div className="text-center">
-          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Zap className="w-8 h-8 text-primary" />
+          <div className="w-12 h-12 md:w-16 md:h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6">
+            <Zap className="w-6 h-6 md:w-8 md:h-8 text-primary" />
           </div>
-          <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Premium Components</span>
-          <h2 id="products-deal-heading" className="text-4xl md:text-5xl font-black tracking-tight text-on-surface uppercase">Products We Deal In</h2>
-          <p className="text-on-surface-variant mt-4">Discover our range of high-performance solar components.</p>
-          <div className="w-24 h-1.5 bg-primary mx-auto mt-6 rounded-full" />
+          <span className="text-primary font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 sm:mb-4 block">Premium Components</span>
+          <h2 id="products-deal-heading" className="text-3xl md:text-5xl font-black tracking-tight text-on-surface uppercase">Products We Deal In</h2>
+          <p className="text-on-surface-variant mt-2 md:mt-4 text-sm md:text-base">Discover our range of high-performance solar components.</p>
+          <div className="w-16 md:w-24 h-1 md:h-1.5 bg-primary mx-auto mt-4 md:mt-6 rounded-full" />
         </div>
       </div>
       
@@ -296,18 +298,18 @@ function SolarSavingsCalculator() {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      className="py-32 bg-surface-container-low rounded-[4rem] my-20 shadow-xl border border-surface-container mx-4 md:mx-8"
+      className="py-16 md:py-32 bg-surface-container-low rounded-[2rem] md:rounded-[4rem] my-10 md:my-20 shadow-xl border border-surface-container mx-4 md:mx-8"
     >
-      <div className="max-w-7xl mx-auto px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Savings Estimator</span>
-            <h2 id="calculator-heading" className="text-4xl md:text-5xl font-black tracking-tight mb-8 leading-tight uppercase">HOW MUCH CAN YOU SAVE WITH <span className="text-primary">SUNSPARK?</span></h2>
-            <p className="text-lg text-on-surface-variant mb-10 leading-relaxed">
+            <h2 id="calculator-heading" className="text-3xl md:text-5xl font-black tracking-tight mb-6 md:mb-8 leading-tight uppercase">HOW MUCH CAN YOU SAVE WITH <span className="text-primary">SUNSPARK?</span></h2>
+            <p className="text-base md:text-lg text-on-surface-variant mb-8 md:mb-10 leading-relaxed">
               Use our kinetic energy calculator to estimate your potential savings, payback period, and environmental impact based on your specific property details.
             </p>
             
-            <div className="space-y-6 bg-surface-container-lowest p-8 rounded-3xl shadow-xl border border-outline-variant/10">
+            <div className="space-y-6 bg-surface-container-lowest p-6 md:p-8 rounded-[2rem] md:rounded-3xl shadow-xl border border-outline-variant/10">
               <div>
                 <label htmlFor="monthly-bill" className="block text-sm font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Average Monthly Bill ($)</label>
                 <input 
@@ -378,21 +380,21 @@ function SolarSavingsCalculator() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="grid grid-cols-1 gap-6"
                 >
-                  <div className="bg-primary text-white p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+                  <div className="bg-primary text-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
-                    <span className="text-sm font-bold uppercase tracking-widest opacity-80 mb-2 block">Estimated Annual Savings</span>
-                    <h3 className="text-6xl font-black mb-4">${results.savings.toLocaleString()}</h3>
-                    <p className="text-white/70">Based on current utility rates in {location}.</p>
+                    <span className="text-xs md:text-sm font-bold uppercase tracking-widest opacity-80 mb-2 block">Estimated Annual Savings</span>
+                    <h3 className="text-4xl md:text-6xl font-black mb-4">${results.savings.toLocaleString()}</h3>
+                    <p className="text-white/70 text-sm md:text-base">Based on current utility rates in {location}.</p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="bg-surface-container-lowest p-8 rounded-3xl shadow-xl border border-outline-variant/10">
-                      <span className="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">Payback Period</span>
-                      <h4 className="text-3xl font-black text-on-surface">{results.payback} Years</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                    <div className="bg-surface-container-lowest p-6 md:p-8 rounded-2xl md:rounded-3xl shadow-xl border border-outline-variant/10">
+                      <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">Payback Period</span>
+                      <h4 className="text-2xl md:text-3xl font-black text-on-surface">{results.payback} Years</h4>
                     </div>
-                    <div className="bg-surface-container-lowest p-8 rounded-3xl shadow-xl border border-outline-variant/10">
-                      <span className="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">CO2 Offset</span>
-                      <h4 className="text-3xl font-black text-on-surface">{results.co2} Tons/Yr</h4>
+                    <div className="bg-surface-container-lowest p-6 md:p-8 rounded-2xl md:rounded-3xl shadow-xl border border-outline-variant/10">
+                      <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">CO2 Offset</span>
+                      <h4 className="text-2xl md:text-3xl font-black text-on-surface">{results.co2} Tons/Yr</h4>
                     </div>
                   </div>
 
@@ -431,6 +433,7 @@ function SolarSavingsCalculator() {
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 850], [0, 200]);
 
@@ -453,11 +456,11 @@ export default function App() {
     <div className="min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full glass-header shadow-sm">
-        <div className="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+        <div className="flex justify-between items-center px-4 sm:px-8 py-4 max-w-7xl mx-auto">
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-black tracking-tighter text-on-surface">SunSpark</span>
+            <span className="text-xl sm:text-2xl font-black tracking-tighter text-on-surface">SunSpark</span>
           </div>
-          <nav className="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
+          <nav className="hidden lg:flex items-center space-x-8" aria-label="Main Navigation">
             <a className="text-primary font-bold border-b-2 border-primary pb-1" href="#home">Home</a>
             <a className="text-on-surface-variant hover:text-primary transition-colors" href="#about">About</a>
             <a className="text-on-surface-variant hover:text-primary transition-colors" href="#services">Services</a>
@@ -465,23 +468,61 @@ export default function App() {
             <a className="text-on-surface-variant hover:text-primary transition-colors" href="#projects">Projects</a>
             <a className="text-on-surface-variant hover:text-primary transition-colors" href="#blog">Blog</a>
           </nav>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <button 
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all"
+              className="p-2 sm:p-2.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all"
               aria-label="Toggle dark mode"
             >
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
-            <button className="px-6 py-2.5 bg-surface-container-high text-on-surface font-medium rounded-full hover:bg-surface-container-highest transition-all scale-95 active:scale-100" aria-label="Contact us">Contact</button>
-            <button className="px-6 py-2.5 bg-primary text-white font-bold rounded-full hover:opacity-90 transition-all scale-95 active:scale-100 shadow-lg shadow-primary/20" aria-label="Get a solar quote">Get a Quote</button>
+            <div className="hidden sm:flex items-center gap-2 sm:gap-4">
+              <button className="px-4 sm:px-6 py-2.5 bg-surface-container-high text-on-surface font-medium rounded-full hover:bg-surface-container-highest transition-all scale-95 active:scale-100 text-sm sm:text-base" aria-label="Contact us">Contact</button>
+              <button className="px-4 sm:px-6 py-2.5 bg-primary text-white font-bold rounded-full hover:opacity-90 transition-all scale-95 active:scale-100 shadow-lg shadow-primary/20 text-sm sm:text-base" aria-label="Get a solar quote">Get a Quote</button>
+            </div>
+            <button 
+              className="lg:hidden p-2 text-on-surface"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden bg-surface border-t border-surface-container overflow-hidden"
+            >
+              <nav className="flex flex-col p-6 space-y-4">
+                {['Home', 'About', 'Services', 'Products', 'Projects', 'Blog'].map((item) => (
+                  <a 
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className="text-lg font-bold text-on-surface hover:text-primary transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item}
+                  </a>
+                ))}
+                <div className="pt-4 flex flex-col gap-4">
+                  <button className="w-full py-3 bg-surface-container-high text-on-surface font-bold rounded-xl">Contact Us</button>
+                  <button className="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20">Get a Quote</button>
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <main>
         {/* Hero Section */}
-        <section id="home" className="relative h-[850px] overflow-hidden">
+        <section id="home" className="relative h-[600px] sm:h-[700px] md:h-[850px] overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -503,13 +544,13 @@ export default function App() {
                 />
               </motion.div>
               <div className="absolute inset-0 bg-black/40" />
-              <div className="relative z-10 h-full flex items-center container max-w-7xl mx-auto px-8">
+              <div className="relative z-10 h-full flex items-center container max-w-7xl mx-auto px-4 sm:px-8">
                 <div className="max-w-3xl">
                   <motion.h1 
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] mb-8 uppercase"
+                    className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] mb-6 sm:mb-8 uppercase"
                   >
                     {HERO_SLIDES[currentSlide].title.split(HERO_SLIDES[currentSlide].highlight)[0]}
                     <br />
@@ -519,7 +560,7 @@ export default function App() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="text-xl text-white/90 mb-12 max-w-xl leading-relaxed"
+                    className="text-base sm:text-lg md:text-xl text-white/90 mb-8 sm:mb-12 max-w-xl leading-relaxed"
                   >
                     {HERO_SLIDES[currentSlide].description}
                   </motion.p>
@@ -527,14 +568,14 @@ export default function App() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.6 }}
-                    className="flex flex-wrap gap-4"
+                    className="flex flex-wrap gap-3 sm:gap-4"
                   >
-                    <button className="group relative px-10 py-5 bg-primary text-white text-lg font-bold rounded-full shadow-2xl shadow-primary/40 hover:scale-105 transition-all flex items-center gap-3 overflow-hidden" aria-label="Request a solar consultation">
+                    <button className="group relative px-6 sm:px-10 py-3 sm:py-5 bg-primary text-white text-base sm:text-lg font-bold rounded-full shadow-2xl shadow-primary/40 hover:scale-105 transition-all flex items-center gap-2 sm:gap-3 overflow-hidden" aria-label="Request a solar consultation">
                       <span className="relative z-10">Request a Consultation</span>
-                      <ArrowRightCircle className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRightCircle className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
                       <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                     </button>
-                    <button className="px-10 py-5 border-2 border-white text-white text-lg font-bold rounded-full hover:bg-white hover:text-on-surface transition-all" aria-label="Learn more about our technology">Learn More</button>
+                    <button className="px-6 sm:px-10 py-3 sm:py-5 border-2 border-white text-white text-base sm:text-lg font-bold rounded-full hover:bg-white hover:text-on-surface transition-all" aria-label="Learn more about our technology">Learn More</button>
                   </motion.div>
                 </div>
               </div>
@@ -567,10 +608,10 @@ export default function App() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="py-32 bg-surface-container-low overflow-hidden rounded-[4rem] my-20 shadow-2xl shadow-surface-container border border-surface-container/30"
+          className="py-16 md:py-32 bg-surface-container-low overflow-hidden rounded-[2rem] md:rounded-[4rem] my-10 md:my-20 shadow-2xl shadow-surface-container border border-surface-container/30"
         >
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -599,9 +640,9 @@ export default function App() {
                     whileInView={{ x: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5 }}
-                    className="absolute -bottom-6 -left-6 p-6 glass-header rounded-2xl shadow-xl z-20"
+                    className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 p-4 md:p-6 glass-header rounded-2xl shadow-xl z-20"
                   >
-                    <p className="text-3xl font-black text-primary">
+                    <p className="text-2xl md:text-3xl font-black text-primary">
                       <Counter value={15} suffix="+" />
                     </p>
                     <p className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Years of Innovation</p>
@@ -634,8 +675,8 @@ export default function App() {
                   </p>
                 </div>
                 
-                <div className="bg-surface-container-lowest p-10 rounded-[2.5rem] shadow-xl shadow-surface-container border border-surface-container">
-                  <h3 className="text-xl font-bold text-on-surface mb-8 uppercase tracking-tight flex items-center gap-3">
+                <div className="bg-surface-container-lowest p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-xl shadow-surface-container border border-surface-container">
+                  <h3 className="text-lg md:text-xl font-bold text-on-surface mb-6 md:mb-8 uppercase tracking-tight flex items-center gap-3">
                     <div className="w-8 h-1 bg-primary rounded-full" />
                     Our Industry-Leading Standards
                   </h3>
@@ -682,16 +723,16 @@ export default function App() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="py-24 px-8 max-w-7xl mx-auto bg-surface rounded-[3rem] my-16 shadow-2xl shadow-surface-container/40 border border-surface-container"
+          className="py-16 md:py-24 px-4 sm:px-8 max-w-7xl mx-auto bg-surface rounded-[2rem] md:rounded-[3rem] my-10 md:my-16 shadow-2xl shadow-surface-container/40 border border-surface-container"
         >
-          <div className="flex justify-between items-center mb-16">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-12 md:mb-16">
             <div>
               <span className="text-primary flex items-center gap-2 font-bold mb-2 uppercase tracking-widest text-sm">
                 <Sun className="w-5 h-5" aria-hidden="true" /> Services
               </span>
-              <h2 id="services-heading" className="text-4xl md:text-5xl font-black tracking-tight text-on-surface uppercase">Our Services</h2>
+              <h2 id="services-heading" className="text-3xl md:text-5xl font-black tracking-tight text-on-surface uppercase">Our Services</h2>
             </div>
-            <button className="px-8 py-3 bg-primary text-white font-bold rounded-lg flex items-center gap-2 hover:opacity-90 transition-all" aria-label="View all solar services">
+            <button className="w-full sm:w-auto px-8 py-3 bg-primary text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-all" aria-label="View all solar services">
               View All <ArrowRightCircle className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
@@ -737,28 +778,28 @@ export default function App() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1 }}
-          className="py-24 bg-surface border-y border-surface-container shadow-sm"
+          className="py-16 md:py-24 bg-surface border-y border-surface-container shadow-sm"
         >
-          <div className="max-w-7xl mx-auto px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-12 md:mb-16"
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-surface-container rounded-full text-on-surface-variant text-sm font-bold uppercase tracking-widest mb-4">
                 <Sun className="w-4 h-4 text-primary" aria-hidden="true" />
                 Our Projects
               </div>
-              <h2 id="projects-heading" className="text-4xl md:text-5xl font-black tracking-tight text-on-surface mb-6 uppercase">
+              <h2 id="projects-heading" className="text-3xl md:text-5xl font-black tracking-tight text-on-surface mb-6 uppercase">
                 Our Latest <span className="text-primary">Projects</span>
               </h2>
-              <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+              <p className="text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
                 Pioneering sustainable energy transitions across Pakistan with precision-engineered solar infrastructure.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8">
               {PROJECTS.filter(p => p.size === 'large').map((project, index) => (
                 <motion.div 
                   key={index}
@@ -788,7 +829,7 @@ export default function App() {
               ))}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {PROJECTS.filter(p => p.size === 'small').map((project, index) => (
                 <motion.div 
                   key={index}
@@ -824,15 +865,15 @@ export default function App() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="py-32 bg-surface border-b border-surface-container"
+          className="py-16 md:py-32 bg-surface border-b border-surface-container"
         >
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="text-center mb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8">
+            <div className="text-center mb-12 md:mb-20">
               <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Meet Our Experts</span>
-              <h2 id="team-heading" className="text-4xl md:text-5xl font-black tracking-tight text-on-surface uppercase">Engineering The Future</h2>
-              <p className="text-on-surface-variant max-w-2xl mx-auto mt-4">A dedicated team of industry pioneers committed to revolutionizing sustainable energy.</p>
+              <h2 id="team-heading" className="text-3xl md:text-5xl font-black tracking-tight text-on-surface uppercase">Engineering The Future</h2>
+              <p className="text-on-surface-variant max-w-2xl mx-auto mt-4 text-sm md:text-base">A dedicated team of industry pioneers committed to revolutionizing sustainable energy.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {TEAM.map((member, index) => (
                 <motion.div 
                   key={index} 
@@ -866,12 +907,12 @@ export default function App() {
         <SolarSavingsCalculator />
 
         {/* Advantage Section */}
-        <section className="py-32 bg-on-surface text-white rounded-t-[4rem]">
-          <div className="max-w-7xl mx-auto px-8 text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4 uppercase">The SunSpark Advantage</h2>
-            <p className="text-white/60">Why world-class organizations trust our premium solar technology.</p>
+        <section className="py-16 md:py-32 bg-on-surface text-white rounded-t-[2rem] md:rounded-t-[4rem]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 text-center mb-12 md:mb-20">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 uppercase">The SunSpark Advantage</h2>
+            <p className="text-white/60 text-sm md:text-base">Why world-class organizations trust our premium solar technology.</p>
           </div>
-          <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-16">
             {[
               { icon: ShieldCheck, title: "25 Year Warranty", desc: "Guaranteed performance for a quarter century of clean energy." },
               { icon: Leaf, title: "Eco-Precision", desc: "Materials sourced with zero-waste manufacturing protocols." },
@@ -899,14 +940,14 @@ export default function App() {
         </section>
 
         {/* Pricing Section */}
-        <section className="py-32 bg-surface-container-low">
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <section className="py-16 md:py-32 bg-surface-container-low">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Basic */}
-              <div className="bg-surface-container-lowest p-10 rounded-3xl shadow-sm border border-outline-variant/10">
-                <h4 className="text-2xl font-bold mb-4">Residential Starter</h4>
-                <p className="text-4xl font-black mb-8">$4,999 <span className="text-lg font-normal text-on-surface-variant">/ avg</span></p>
-                <ul className="space-y-4 mb-10 text-on-surface-variant">
+              <div className="bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-sm border border-outline-variant/10">
+                <h4 className="text-xl md:text-2xl font-bold mb-4">Residential Starter</h4>
+                <p className="text-3xl md:text-4xl font-black mb-8">$4,999 <span className="text-lg font-normal text-on-surface-variant">/ avg</span></p>
+                <ul className="space-y-4 mb-10 text-on-surface-variant text-sm md:text-base">
                   {["5kW Kinetic Array", "Standard Mounting", "10 Year Warranty", "Mobile App Access"].map((item, i) => (
                     <li key={i} className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-primary" /> {item}</li>
                   ))}
@@ -914,11 +955,11 @@ export default function App() {
                 <button className="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all">Select Plan</button>
               </div>
               {/* Pro */}
-              <div className="bg-primary text-white p-12 rounded-[2.5rem] shadow-2xl scale-105 relative z-20">
+              <div className="bg-primary text-white p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl md:scale-105 relative z-20">
                 <span className="absolute top-6 right-6 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">Most Popular</span>
-                <h4 className="text-2xl font-bold mb-4">Elite Pro Flow</h4>
-                <p className="text-4xl font-black mb-8">$9,250 <span className="text-lg font-normal text-white/70">/ avg</span></p>
-                <ul className="space-y-4 mb-10">
+                <h4 className="text-xl md:text-2xl font-bold mb-4">Elite Pro Flow</h4>
+                <p className="text-3xl md:text-4xl font-black mb-8">$9,250 <span className="text-lg font-normal text-white/70">/ avg</span></p>
+                <ul className="space-y-4 mb-10 text-sm md:text-base">
                   {["12kW Kinetic Array", "10kWh Battery Storage", "25 Year Performance", "24/7 Priority Support"].map((item, i) => (
                     <li key={i} className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5" /> {item}</li>
                   ))}
@@ -926,10 +967,10 @@ export default function App() {
                 <button className="w-full py-4 bg-white text-primary font-black rounded-xl hover:bg-surface-container-low transition-all shadow-xl">Get Started Now</button>
               </div>
               {/* Enterprise */}
-              <div className="bg-surface-container-lowest p-10 rounded-3xl shadow-sm border border-outline-variant/10">
-                <h4 className="text-2xl font-bold mb-4">Utility Scale</h4>
-                <p className="text-4xl font-black mb-8">Custom <span className="text-lg font-normal text-on-surface-variant">/ quote</span></p>
-                <ul className="space-y-4 mb-10 text-on-surface-variant">
+              <div className="bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-sm border border-outline-variant/10 md:col-span-2 lg:col-span-1">
+                <h4 className="text-xl md:text-2xl font-bold mb-4">Utility Scale</h4>
+                <p className="text-3xl md:text-4xl font-black mb-8">Custom <span className="text-lg font-normal text-on-surface-variant">/ quote</span></p>
+                <ul className="space-y-4 mb-10 text-on-surface-variant text-sm md:text-base">
                   {["Mega-scale Arrays", "Containerized Storage", "AI Grid Management", "Dedicated Site Team"].map((item, i) => (
                     <li key={i} className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-primary" /> {item}</li>
                   ))}
@@ -941,15 +982,15 @@ export default function App() {
         </section>
 
         {/* Blog Section */}
-        <section id="blog" className="py-32 px-8 max-w-7xl mx-auto" aria-labelledby="blog-heading">
-          <div className="flex justify-between items-end mb-16">
+        <section id="blog" className="py-16 md:py-32 px-4 sm:px-8 max-w-7xl mx-auto" aria-labelledby="blog-heading">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-12 md:mb-16">
             <div>
-              <h2 id="blog-heading" className="text-4xl md:text-5xl font-black tracking-tight uppercase">SunSpark Insights</h2>
-              <p className="text-on-surface-variant">The latest in renewable tech and sustainability.</p>
+              <h2 id="blog-heading" className="text-3xl md:text-5xl font-black tracking-tight uppercase">SunSpark Insights</h2>
+              <p className="text-on-surface-variant text-sm md:text-base">The latest in renewable tech and sustainability.</p>
             </div>
             <button className="text-primary font-bold flex items-center gap-2" aria-label="View all blog posts">View All Posts <ArrowUpRight className="w-5 h-5" aria-hidden="true" /></button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {BLOG_POSTS.map((post, index) => (
               <article 
                 key={index} 
@@ -972,13 +1013,13 @@ export default function App() {
         </section>
 
         {/* Final CTA */}
-        <section className="py-24 px-8 max-w-7xl mx-auto" aria-labelledby="cta-heading">
-          <div className="energy-flow-gradient rounded-[3rem] p-12 md:p-24 text-center text-white relative overflow-hidden">
-            <h2 id="cta-heading" className="text-4xl md:text-7xl font-black tracking-tight mb-8 relative z-10 uppercase">READY TO HARVEST THE SUN?</h2>
-            <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto relative z-10">Join over 5,000 forward-thinking households and businesses in the kinetic revolution.</p>
-            <div className="flex flex-wrap justify-center gap-6 relative z-10">
-              <button className="px-12 py-5 bg-white text-primary text-lg font-black rounded-full shadow-2xl hover:scale-105 transition-transform" aria-label="Get a solar quote today">Get a Quote Today</button>
-              <button className="px-12 py-5 bg-black/20 backdrop-blur-xl border border-white/20 text-white text-lg font-black rounded-full hover:bg-white/10 transition-all" aria-label="Schedule a site survey">Schedule Survey</button>
+        <section className="py-16 md:py-24 px-4 sm:px-8 max-w-7xl mx-auto" aria-labelledby="cta-heading">
+          <div className="energy-flow-gradient rounded-[2rem] md:rounded-[3rem] p-8 md:p-24 text-center text-white relative overflow-hidden">
+            <h2 id="cta-heading" className="text-3xl md:text-7xl font-black tracking-tight mb-6 md:mb-8 relative z-10 uppercase">READY TO HARVEST THE SUN?</h2>
+            <p className="text-lg md:text-2xl text-white/80 mb-8 md:mb-12 max-w-3xl mx-auto relative z-10">Join over 5,000 forward-thinking households and businesses in the kinetic revolution.</p>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6 relative z-10">
+              <button className="w-full sm:w-auto px-8 md:px-12 py-4 md:py-5 bg-white text-primary text-base md:text-lg font-black rounded-full shadow-2xl hover:scale-105 transition-transform" aria-label="Get a solar quote today">Get a Quote Today</button>
+              <button className="w-full sm:w-auto px-8 md:px-12 py-4 md:py-5 bg-black/20 backdrop-blur-xl border border-white/20 text-white text-base md:text-lg font-black rounded-full hover:bg-white/10 transition-all" aria-label="Schedule a site survey">Schedule Survey</button>
             </div>
           </div>
         </section>
@@ -986,8 +1027,8 @@ export default function App() {
 
       {/* Footer */}
       <footer className="bg-surface-container-low w-full rounded-t-[2rem]">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 px-12 py-20 max-w-7xl mx-auto">
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-12 px-6 sm:px-12 py-16 md:py-20 max-w-7xl mx-auto">
+          <div className="sm:col-span-2 md:col-span-2">
             <span className="text-xl font-bold text-on-surface block mb-6">SunSpark</span>
             <p className="text-sm leading-relaxed text-on-surface-variant mb-8 max-w-xs">
               Pioneering the next generation of kinetic energy systems. We provide high-performance solar solutions for a cleaner tomorrow.
