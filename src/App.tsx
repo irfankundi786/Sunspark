@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useSpring, useMotionValue, useInView, animate, useScroll, useTransform } from 'motion/react';
 import { 
   Sun, 
@@ -23,10 +23,15 @@ import {
   Mail,
   Globe,
   Instagram,
+  Facebook,
+  Linkedin,
   BatteryCharging,
   BarChart3,
   Zap,
-  Calculator
+  Calculator,
+  Send,
+  Loader2,
+  AlertCircle
 } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 
@@ -71,9 +76,9 @@ const SERVICES = [
 
 const TEAM = [
   {
-    name: "Sarah Chen",
-    role: "Chief Technology Officer",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDmmlzwKenzP76o5NOUtiAQB9VYlbTyQKjL_31sHSyhMxoG6L3Vmc4MGNKNqijL6z8LJx2ewxSkezUy7Sla8EdH_nrzEOfO0l37kFF62aWIjE-IrEoc7tgI2g1PfMwVuCTjj1aoFM-vwg63JoQS9jBO6DwpEeNdgG9Ib0wYL31ygyERrE6mhygZP5El4-ToakiRw6cUDS8o27iQORgfJIYwskRdrfIu74wNKmoLkFnilwo92SBKlIBwC4iQSF9qTY6gQvL-hAE5Scio"
+    name: "Bilal Khan Kundi",
+    role: "CEO",
+    image:"/team/Bilal.jpg",
   },
   {
     name: "Marcus Thorne",
@@ -311,24 +316,24 @@ function SolarSavingsCalculator() {
             
             <div className="space-y-6 bg-surface-container-lowest p-6 md:p-8 rounded-[2rem] md:rounded-3xl shadow-xl border border-outline-variant/10">
               <div>
-                <label htmlFor="monthly-bill" className="block text-sm font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Average Monthly Bill ($)</label>
+                <label htmlFor="monthly-bill" className="block text-sm font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Average Monthly Bill (RS)</label>
                 <input 
                   id="monthly-bill"
                   type="range" 
-                  min="50" 
-                  max="1000" 
-                  step="10"
+                  min="5000" 
+                  max="100000" 
+                  step="500"
                   value={bill}
                   onChange={(e) => setBill(Number(e.target.value))}
                   className="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary"
-                  aria-valuemin={50}
-                  aria-valuemax={1000}
+                  aria-valuemin={5000}
+                  aria-valuemax={100000}
                   aria-valuenow={bill}
                 />
                 <div className="flex justify-between mt-2 font-bold text-primary" aria-hidden="true">
-                  <span>$50</span>
-                  <span className="text-2xl">${bill}</span>
-                  <span>$1000</span>
+                  <span>5,000 RS</span>
+                  <span className="text-2xl">{bill.toLocaleString()} RS</span>
+                  <span>100,000 RS</span>
                 </div>
               </div>
 
@@ -383,7 +388,7 @@ function SolarSavingsCalculator() {
                   <div className="bg-primary text-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
                     <span className="text-xs md:text-sm font-bold uppercase tracking-widest opacity-80 mb-2 block">Estimated Annual Savings</span>
-                    <h3 className="text-4xl md:text-6xl font-black mb-4">${results.savings.toLocaleString()}</h3>
+                    <h3 className="text-4xl md:text-6xl font-black mb-4">{results.savings.toLocaleString()} RS</h3>
                     <p className="text-white/70 text-sm md:text-base">Based on current utility rates in {location}.</p>
                   </div>
 
@@ -427,6 +432,219 @@ function SolarSavingsCalculator() {
         </div>
       </div>
     </motion.section>
+  );
+}
+
+function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Invalid email format';
+    }
+    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
+    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    return newErrors;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors({});
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    // Simulate API call
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  return (
+    <section id="contact" className="py-24 px-4 sm:px-8 max-w-7xl mx-auto" aria-labelledby="contact-heading">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div>
+          <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Get In Touch</span>
+          <h2 id="contact-heading" className="text-4xl md:text-5xl font-black tracking-tight text-on-surface mb-8 uppercase">Let's Power Your <span className="text-primary">Future</span></h2>
+          <p className="text-lg text-on-surface-variant mb-12 leading-relaxed">
+            Have questions about our solar solutions? Our team of experts is ready to help you transition to clean, sustainable energy.
+          </p>
+
+          <div className="space-y-8">
+            {[
+              { icon: Phone, title: "Call Us", detail: "0344-2441880", sub: "Mon-Fri, 9am-6pm" },
+              { icon: Mail, title: "Email Us", detail: "dik.sunspark@gmail.com", sub: "24/7 Support" },
+              { icon: MapPin, title: "Visit Us", detail: "Head Office: Al-Rasheed Market Shop#10 DIK", sub: "Regional Office: Office #1-2, Mezzanine Floor, Rizwan Plaza, Jinnah Avenue, Blue Area, Islamabad" }
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-6 group">
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-all">
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-on-surface text-lg">{item.title}</h4>
+                  <p className="text-on-surface-variant font-medium">{item.detail}</p>
+                  <p className="text-xs text-on-surface-variant/60 uppercase tracking-widest mt-1">{item.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-surface-container-lowest p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-surface-container relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+          
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-bold text-on-surface-variant uppercase tracking-wide">Full Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={cn(
+                    "w-full px-6 py-4 bg-surface-container rounded-xl border-2 transition-all focus:ring-0",
+                    errors.name ? "border-error/50 focus:border-error" : "border-transparent focus:border-primary"
+                  )}
+                  placeholder="John Doe"
+                />
+                {errors.name && <p className="text-error text-xs font-bold flex items-center gap-1 mt-1"><AlertCircle className="w-3 h-3" /> {errors.name}</p>}
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-bold text-on-surface-variant uppercase tracking-wide">Email Address</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={cn(
+                    "w-full px-6 py-4 bg-surface-container rounded-xl border-2 transition-all focus:ring-0",
+                    errors.email ? "border-error/50 focus:border-error" : "border-transparent focus:border-primary"
+                  )}
+                  placeholder="john@example.com"
+                />
+                {errors.email && <p className="text-error text-xs font-bold flex items-center gap-1 mt-1"><AlertCircle className="w-3 h-3" /> {errors.email}</p>}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="subject" className="text-sm font-bold text-on-surface-variant uppercase tracking-wide">Subject</label>
+              <input
+                id="subject"
+                name="subject"
+                type="text"
+                value={formData.subject}
+                onChange={handleChange}
+                className={cn(
+                  "w-full px-6 py-4 bg-surface-container rounded-xl border-2 transition-all focus:ring-0",
+                  errors.subject ? "border-error/50 focus:border-error" : "border-transparent focus:border-primary"
+                )}
+                placeholder="Inquiry about Residential Solar"
+              />
+              {errors.subject && <p className="text-error text-xs font-bold flex items-center gap-1 mt-1"><AlertCircle className="w-3 h-3" /> {errors.subject}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="message" className="text-sm font-bold text-on-surface-variant uppercase tracking-wide">Your Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                value={formData.message}
+                onChange={handleChange}
+                className={cn(
+                  "w-full px-6 py-4 bg-surface-container rounded-xl border-2 transition-all focus:ring-0 resize-none",
+                  errors.message ? "border-error/50 focus:border-error" : "border-transparent focus:border-primary"
+                )}
+                placeholder="Tell us about your project..."
+              />
+              {errors.message && <p className="text-error text-xs font-bold flex items-center gap-1 mt-1"><AlertCircle className="w-3 h-3" /> {errors.message}</p>}
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={cn(
+                "w-full py-5 rounded-xl font-black text-lg shadow-xl transition-all flex items-center justify-center gap-3",
+                isSubmitting ? "bg-surface-container-highest text-on-surface-variant cursor-not-allowed" : "bg-primary text-white hover:opacity-90 active:scale-[0.98]"
+              )}
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-6 h-6 animate-spin" /> Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="w-6 h-6" /> Send Message
+                </>
+              )}
+            </button>
+
+            <AnimatePresence>
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="p-4 bg-primary/10 border border-primary/20 rounded-xl flex items-center gap-3 text-primary"
+                >
+                  <CheckCircle2 className="w-5 h-5" />
+                  <span className="font-bold">Message sent successfully! We'll get back to you soon.</span>
+                </motion.div>
+              )}
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="p-4 bg-error/10 border border-error/20 rounded-xl flex items-center gap-3 text-error"
+                >
+                  <AlertCircle className="w-5 h-5" />
+                  <span className="font-bold">Something went wrong. Please try again later.</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </form>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -477,7 +695,7 @@ export default function App() {
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             <div className="hidden sm:flex items-center gap-2 sm:gap-4">
-              <button className="px-4 sm:px-6 py-2.5 bg-surface-container-high text-on-surface font-medium rounded-full hover:bg-surface-container-highest transition-all scale-95 active:scale-100 text-sm sm:text-base" aria-label="Contact us">Contact</button>
+              <a href="#contact" className="px-4 sm:px-6 py-2.5 bg-surface-container-high text-on-surface font-medium rounded-full hover:bg-surface-container-highest transition-all scale-95 active:scale-100 text-sm sm:text-base flex items-center justify-center" aria-label="Contact us">Contact</a>
               <button className="px-4 sm:px-6 py-2.5 bg-primary text-white font-bold rounded-full hover:opacity-90 transition-all scale-95 active:scale-100 shadow-lg shadow-primary/20 text-sm sm:text-base" aria-label="Get a solar quote">Get a Quote</button>
             </div>
             <button 
@@ -906,6 +1124,8 @@ export default function App() {
 
         <SolarSavingsCalculator />
 
+        <ContactSection />
+
         {/* Advantage Section */}
         <section className="py-16 md:py-32 bg-on-surface text-white rounded-t-[2rem] md:rounded-t-[4rem]">
           <div className="max-w-7xl mx-auto px-4 sm:px-8 text-center mb-12 md:mb-20">
@@ -946,7 +1166,7 @@ export default function App() {
               {/* Basic */}
               <div className="bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-sm border border-outline-variant/10">
                 <h4 className="text-xl md:text-2xl font-bold mb-4">Residential Starter</h4>
-                <p className="text-3xl md:text-4xl font-black mb-8">$4,999 <span className="text-lg font-normal text-on-surface-variant">/ avg</span></p>
+                <p className="text-3xl md:text-4xl font-black mb-8">500,000 RS <span className="text-lg font-normal text-on-surface-variant">/ avg</span></p>
                 <ul className="space-y-4 mb-10 text-on-surface-variant text-sm md:text-base">
                   {["5kW Kinetic Array", "Standard Mounting", "10 Year Warranty", "Mobile App Access"].map((item, i) => (
                     <li key={i} className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-primary" /> {item}</li>
@@ -958,7 +1178,7 @@ export default function App() {
               <div className="bg-primary text-white p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl md:scale-105 relative z-20">
                 <span className="absolute top-6 right-6 bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">Most Popular</span>
                 <h4 className="text-xl md:text-2xl font-bold mb-4">Elite Pro Flow</h4>
-                <p className="text-3xl md:text-4xl font-black mb-8">$9,250 <span className="text-lg font-normal text-white/70">/ avg</span></p>
+                <p className="text-3xl md:text-4xl font-black mb-8">10 Lac RS <span className="text-lg font-normal text-white/70">/ avg</span></p>
                 <ul className="space-y-4 mb-10 text-sm md:text-base">
                   {["12kW Kinetic Array", "10kWh Battery Storage", "25 Year Performance", "24/7 Priority Support"].map((item, i) => (
                     <li key={i} className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5" /> {item}</li>
@@ -969,7 +1189,7 @@ export default function App() {
               {/* Enterprise */}
               <div className="bg-surface-container-lowest p-8 md:p-10 rounded-3xl shadow-sm border border-outline-variant/10 md:col-span-2 lg:col-span-1">
                 <h4 className="text-xl md:text-2xl font-bold mb-4">Utility Scale</h4>
-                <p className="text-3xl md:text-4xl font-black mb-8">Custom <span className="text-lg font-normal text-on-surface-variant">/ quote</span></p>
+                <p className="text-3xl md:text-4xl font-black mb-8">Custom <span className="text-lg font-normal text-on-surface-variant">/ quote (RS)</span></p>
                 <ul className="space-y-4 mb-10 text-on-surface-variant text-sm md:text-base">
                   {["Mega-scale Arrays", "Containerized Storage", "AI Grid Management", "Dedicated Site Team"].map((item, i) => (
                     <li key={i} className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5 text-primary" /> {item}</li>
@@ -1035,14 +1255,16 @@ export default function App() {
             </p>
             <div className="flex gap-4">
               {[
-                { icon: Globe, label: "Website" },
-                { icon: Share2, label: "Share" },
-                { icon: Instagram, label: "Instagram" }
+                { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/sunsparkpower" },
+                { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/sunsparkpower" },
+                { icon: Instagram, label: "Instagram", href: "#" }
               ].map((social, i) => (
                 <a 
                   key={i} 
                   className="w-10 h-10 bg-surface-container-highest rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all" 
-                  href="#"
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={`Visit our ${social.label}`}
                 >
                   <social.icon className="w-5 h-5" aria-hidden="true" />
@@ -1053,10 +1275,10 @@ export default function App() {
           <div>
             <h6 className="font-bold mb-6 text-on-surface">Quick Links</h6>
             <ul className="space-y-4 text-sm text-on-surface-variant">
-              <li><a className="hover:text-primary transition-transform inline-block" href="#">About Us</a></li>
-              <li><a className="hover:text-primary transition-transform inline-block" href="#">Our Projects</a></li>
-              <li><a className="hover:text-primary transition-transform inline-block" href="#">Pricing Plans</a></li>
-              <li><a className="hover:text-primary transition-transform inline-block" href="#">Contact Support</a></li>
+              <li><a className="hover:text-primary transition-transform inline-block" href="#about">About Us</a></li>
+              <li><a className="hover:text-primary transition-transform inline-block" href="#projects">Our Projects</a></li>
+              <li><a className="hover:text-primary transition-transform inline-block" href="#contact">Contact Us</a></li>
+              <li><a className="hover:text-primary transition-transform inline-block" href="#blog">Latest News</a></li>
             </ul>
           </div>
           <div>
@@ -1073,15 +1295,18 @@ export default function App() {
             <ul className="space-y-4 text-sm text-on-surface-variant">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-primary mt-0.5" />
-                <span>Energy Way, Solar Valley, SV 90210</span>
+                <div className="flex flex-col gap-1">
+                  <span>Head Office: Al-Rasheed Market Shop#10 DIK</span>
+                  <span className="text-xs opacity-70">Regional Office: Office #1-2, Mezzanine Floor, Rizwan Plaza, Jinnah Avenue, Blue Area, Islamabad</span>
+                </div>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-primary" />
-                <span>+92 (300) SUN-SPARK</span>
+                <span>0344-2441880</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-primary" />
-                <span>hello@sunspark.energy</span>
+                <span>dik.sunspark@gmail.com</span>
               </li>
             </ul>
           </div>
