@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* 1. GLOBAL THEME (Light mode / Default) */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
@@ -26,6 +26,7 @@
   --radius-3xl: 1.5rem;
 }
 
+/* 2. DARK MODE OVERRIDES (Move this OUTSIDE @theme) */
 .dark {
   --color-surface: #0f110f;
   --color-surface-container: #1a1d1a;
@@ -40,17 +41,20 @@
   --color-on-primary-container: #ffffff;
 }
 
+/* 3. BASE STYLES */
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-surface text-on-surface font-sans selection:bg-primary-container selection:text-on-primary-container;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+    font-family: var(--font-display);
   }
 }
 
@@ -66,19 +70,5 @@
 
   .dark .glass-header {
     background: rgba(15, 17, 15, 0.7);
-  }
-
-  @keyframes pulse-slow {
-    0%, 100% { opacity: 0.2; transform: scaleX(0.8); }
-    50% { opacity: 0.6; transform: scaleX(1); }
-  }
-
-  .animate-pulse-slow {
-    animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    vertical-align: middle;
   }
 }
