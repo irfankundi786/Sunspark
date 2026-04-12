@@ -20,7 +20,7 @@ import { Advantage } from './components/Advantage.jsx';
 import { Blog } from './components/Blog.jsx';
 import { Cta } from './components/Cta.jsx';
 import { Footer } from './components/Footer.jsx';
-
+import Chatbot from './components/Chatbot.jsx';
 // --- Data Constants ---
 // (In a real project, you might even move these into a src/data/content.js file!)
 const HERO_SLIDES = [
@@ -225,6 +225,7 @@ export default function App() {
         <Advantage />
         <Blog posts={BLOG_POSTS} />
         <Cta />
+        <Chatbot />
       </main>
       
       <Footer />
