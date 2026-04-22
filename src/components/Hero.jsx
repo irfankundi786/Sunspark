@@ -62,8 +62,10 @@ export const Hero = ({ slides }) => {
               </motion.p>
 
               <div className="flex gap-4">
-                <button className="px-6 py-3 bg-primary text-white rounded-full flex items-center gap-2 hover:scale-105 transition-transform">
-                  Request a Consultation
+                <button 
+                className="px-6 py-3 bg-primary text-white rounded-full flex items-center gap-2 hover:scale-105 transition-transform"
+                onClick={() => window.open("https://sun-wallet.vercel.app/", "_blank")}>
+                  Solar Wallet (Energy Only) 
                   <ArrowRightCircle />
                 </button>
 

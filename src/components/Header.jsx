@@ -12,13 +12,34 @@ export const Header = ({ darkMode, setDarkMode }) => {
           <span className="text-xl sm:text-2xl font-black tracking-tighter text-on-surface">SunSpark</span>
         </div>
         
-        <nav className="hidden lg:flex items-center space-x-8">
-          {['Home', 'About', 'Services', 'Products', 'Projects', 'Blog'].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} className="text-on-surface-variant hover:text-primary transition-colors font-medium">
-              {item}
-            </a>
-          ))}
-        </nav>
+       <nav className="hidden lg:flex items-center space-x-8">
+  {['Home', 'About', 'Services', 'Products', 'Projects', 'Blog', 'Solar Wallet (Energy Only)'].map((item) => {
+    
+    if (item === 'Solar Wallet (Energy Only)') {
+      return (
+        <a
+          key={item}
+          href="https://sun-wallet.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-on-surface-variant hover:text-primary transition-colors font-medium"
+        >
+          {item}
+        </a>
+      );
+    }
+
+    return (
+      <a
+        key={item}
+        href={`#${item.toLowerCase()}`}
+        className="text-on-surface-variant hover:text-primary transition-colors font-medium"
+      >
+        {item}
+      </a>
+    );
+  })}
+</nav>
         
         <div className="flex items-center gap-2 sm:gap-4">
           <button 
